@@ -10,11 +10,23 @@ credentials:
       logged_in: false
       name: A
       password: $2b$12$RShlq0jzxtxMgdswQiBUje32JLrBwHWlwyyS0evlA0vp7RPr2ta2K
+    admin:
+      email: admin@gmail.com
+      logged_in: false
+      name: Admin
+      password: $2b$12$58n9CoGEyEH0xLeMOCQEieFSi3lWgsxF0YjNwx7USWrssXnMsQdMS
     andrenk:
       email: test123@gmail.com
+      failed_login_attempts: 0
       logged_in: false
       name: Test
       password: $2b$12$FTzb9vKO1El7PLQtA4VhAe/H7s1zXKnjx4o63Rzi3aAFtvsdX0FI2
+    testuser1:
+      email: testuser1@gmail.com
+      failed_login_attempts: 0
+      logged_in: false
+      name: Test User
+      password: $2b$12$diCFj72t4u3pqwJJ9NgYU.O1betYY6A59DA.PaKKyHchyoUDvs9iq
 preauthorized:
   emails:
   - andreasnotokusumo23@gmail.com

@@ -3,38 +3,25 @@ import pandas as pd
 
 from models.customer import CustomerModel
 
-st.set_page_config(page_title="Customers", page_icon="📈")
 
-st.markdown("# Customers")
-st.sidebar.header("Customers")
-st.write("""Manage customers""")
+def admin_customers():
+    customer_model = CustomerModel()
 
-customer_model = CustomerModel()
-
-with st.container():
-    st.write("## Select customers")
-    df = pd.DataFrame(customer_model.get_all(), columns=customer_model.COLUMN_NAMES)
-    st.write(df)
-
-    if st.button("Refresh"):
-        st.rerun()
-
-with st.container():
-    st.write("## Add customer")
-    id = st.number_input("ID_add", min_value=0, max_value=1000, step=1)
-    name = st.text_input("Name")
-    address = st.text_input("Address")
-    email = st.text_input("Email")
-    gender = st.selectbox("Gender", ("male", "female"))
-
-    if st.button("Add"):
-        customer_model.insert(id, name, address, email, gender)
-        st.success("Customer added")
-
-with st.container():
-    st.write("## Delete customer")
-    id = st.number_input("ID_delete", min_value=0, max_value=1000, step=1)
-    if st.button("Delete"):
-        customer_model.delete(id)
-        st.success("Customer deleted")
-        st.rerun()
+    col1, col2 = st.columns(2)
+    with col1:
+        st.markdown("## Under Construction")
+    with col2:
+        col1, col2 = st.columns(2)
+        with col1:
+            if st.button("🔄 Refresh"):
+                st.rerun()
+        with col2:
+            popover = st.popover("Add Customer")
+            if popover:
+                name = popover.text_input("Name", key="name")
+                address = popover.text_input("Address", key="address")
+                email = popover.text_input("Email", key="email")
+                gender = popover.selectbox("Gender", ("Male", "Female"), key="gender")
+                if popover.button("Add", key="add_customer"):
+                    customer_model.insert(name, email)
+                    popover.success("Customer added")

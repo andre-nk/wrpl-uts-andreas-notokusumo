@@ -3,34 +3,21 @@ from models.base import Model
 
 class TransactionModel(Model):
     COLUMN_NAMES = [
-        "id",
-        "total_price",
-        "payment_method",
-        "created_at",
-        "status",
-        "customer_id",
+        "idOrder",
+        "idCompany",
+        "idProduct",
+        "quantity",
+        "orderSubtotal",
+        "orderDiscount",
+        "orderTotal",
+        "orderDate",
     ]
 
     def get_all(self):
-        self.cursor.execute("SELECT * FROM transaction")
+        self.cursor.execute("SELECT * FROM tbGiftOrder")
         return self.cursor.fetchall()
 
-    def get_by_customer(self, customer_id):
-        # TODO: Implement this method
-        pass
-
-    def insert(self, id, total_price, payment_method, created_at, status, customer_id):
-        self.cursor.execute(
-            "INSERT INTO transaction (id, total_price, payment_method, created_at, status, customer_id) "
-            + "VALUES (%s, %s, %s, %s, %s, %s)",
-            (id, total_price, payment_method, created_at, status, customer_id),
-        )
-        self._conn.commit()
-
-    def delete(self, id):
-        self.cursor.execute("DELETE FROM customer WHERE id = %s", (id,))
-        self._conn.commit()
-
-    def buy_product(self, transaction_id, product_id, customer_id, payment_method):
-        # TODO: Implement this method
-        pass
+    def cancel_order_by_name(self, name):
+        self.cursor.callproc("CancelOrder", (name,))
+        for result in self.cursor.stored_results():
+            return result.fetchall()
