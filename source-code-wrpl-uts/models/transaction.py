@@ -21,3 +21,8 @@ class TransactionModel(Model):
         self.cursor.callproc("CancelOrder", (name,))
         for result in self.cursor.stored_results():
             return result.fetchall()
+
+    def create_order(self, idCompany, idProduct, quantity):
+        self.cursor.callproc("CreateOrder", (idCompany, idProduct, quantity))
+        for result in self.cursor.stored_results():
+            return result.fetchall()

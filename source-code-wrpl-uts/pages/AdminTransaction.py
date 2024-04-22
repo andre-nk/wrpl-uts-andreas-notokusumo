@@ -13,18 +13,17 @@ def admin_transaction():
     transaction_model = TransactionModel()
 
     with st.container():
-        st.write("## Cancel Transaction by Company Name (Interval: 1 day ago)")
-        company_name = st.text_input("Enter Company Name to cancel")
-        if st.button("Cancel"):
-            results = transaction_model.cancel_order_by_name(company_name)
-            st.success("Transaction cancelled successfully!")
-            if results:
-                st.write("Last 5 transactions:")
-                df = pd.DataFrame(results)
-                print(results)
-                st.dataframe(df, use_container_width=True, hide_index=True)
-            else:
-                st.write("No results found")
+        st.write("## Add Transaction")
+        company_name = st.text_input("Company ID")
+        product_name = st.text_input("Product ID")
+        amount = st.number_input("Amount")
+        if st.button("Add"):
+            result = transaction_model.create_order(company_name, product_name, amount)
+            if result:
+                st.write(result)
+
+            st.success("Transaction added successfully!")
+            st.write(result)
 
     with st.container():
         st.write("## Select Transactions")
